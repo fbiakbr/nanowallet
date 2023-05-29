@@ -44,7 +44,7 @@
                                     <td><?= $value['kelas'] ?></td>
                                     <td><?= "Rp " . number_format($value['jumlah'], 0, ',', '.') ?></td>
                                     <td>
-                                        <a id="delete" href="<?= base_url('admin/delete_pemasukan/' . $value['id_pemasukan']) ?>" class="btn btn-danger btn-sm" onclick="hapusPemasukan(event)"><span class="mdi mdi-delete"></span> Delete</a>
+                                        <a href="<?= base_url('admin/delete_pemasukan/' . $value['id_pemasukan']) ?>" id="hapusPemasukan" class="btn btn-danger btn-sm" onclick="alertDelete(event)"><span class="mdi mdi-delete"></span> Hapus</a>
                                     <td>
                                         <a href="<?= base_url('admin/invoice_pemasukan/' . $value['id_pemasukan']) ?>" class="btn btn-primary btn-sm"><span class="mdi mdi-note-text"></span> Invoice</a>
                                     </td>
@@ -58,5 +58,22 @@
     </div>
 </div>
 <script>
+    let alertDelete = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.location.href = hapusPemasukan.href;
+            }
+        })
+    }
 </script>
 <?= $this->endSection(); ?>

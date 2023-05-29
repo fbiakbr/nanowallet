@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                        <button id="savePemasukan" type="submit" class="btn btn-gradient-primary me-2">Submit</button>
                     </form>
                 </div>
             </div>
