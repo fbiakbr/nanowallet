@@ -21,6 +21,7 @@
                                 <th>Nama Siswa</th>
                                 <th>Kelas</th>
                                 <th>Jumlah</th>
+                                <th>Aksi</th>
                                 <th>Invoice</th>
                             </tr>
                         </thead>
@@ -43,6 +44,8 @@
                                     <td><?= $value['kelas'] ?></td>
                                     <td><?= "Rp " . number_format($value['jumlah'], 0, ',', '.') ?></td>
                                     <td>
+                                        <a id="delete" href="<?= base_url('admin/delete_pemasukan/' . $value['id_pemasukan']) ?>" class="btn btn-danger btn-sm" onclick="hapusPemasukan(event)"><span class="mdi mdi-delete"></span> Delete</a>
+                                    <td>
                                         <a href="<?= base_url('admin/invoice_pemasukan/' . $value['id_pemasukan']) ?>" class="btn btn-primary btn-sm"><span class="mdi mdi-note-text"></span> Invoice</a>
                                     </td>
                                 </tr>
@@ -55,8 +58,5 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
 </script>
 <?= $this->endSection(); ?>

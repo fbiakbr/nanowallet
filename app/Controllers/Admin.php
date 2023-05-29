@@ -6,6 +6,7 @@ use App\Models\Kelas;
 use App\Models\Saldo;
 use App\Models\Siswa;
 use App\Models\Pemasukan;
+use Dompdf\Dompdf;
 use App\Controllers\BaseController;
 
 class Admin extends BaseController
@@ -88,5 +89,30 @@ class Admin extends BaseController
             'data' => $pemasukan->findAll()
         ];
         return view('admin/data_pemasukan', $data);
+    }
+    public function invoice_pemasukan()
+    {
+        $pemasukan = new Pemasukan();
+        $filename = 'Invoice Pemasukan - ' . $pemasukan->where('id_pemasukan', $this->request->uri->getSegment(3))->first()['nama_siswa'] . '.pdf';
+        $data = [
+            'title' => 'Admin | Invoice Pemasukan',
+            'data' => $pemasukan->where('id_pemasukan', $this->request->uri->getSegment(3))->first()
+        ];
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('admin/invoice_pemasukan', $data));
+        $dompdf->setPaper('A5', 'portrait');
+        $dompdf->render();
+        $dompdf->stream($filename, ['Attachment' => false]);
+    }
+    public function delete_pemasukan($id_pemasukan)
+    {
+        $pemasukan = new Pemasukan();
+        $saldo = new Saldo();
+        $data_saldo = $saldo->where('nis', $pemasukan->where('id_pemasukan', $id_pemasukan)->first()['nis'])->first();
+        $data_saldo['saldo'] -= $pemasukan->where('id_pemasukan', $id_pemasukan)->first()['jumlah'];
+        $saldo->update($data_saldo['id_saldo'], $data_saldo);
+        $pemasukan->where('id_pemasukan', $id_pemasukan)->delete();
+        session()->setFlashdata('message', 'Data pemasukan berhasil dihapus');
+        return redirect()->to(base_url('admin/data_pemasukan'));
     }
 }

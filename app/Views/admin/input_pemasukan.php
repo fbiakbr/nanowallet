@@ -170,7 +170,6 @@
         jumlah.value = formatRupiah(jumlah.value, 'Rp ');
     });
 
-    // if nis or rfid is not found in database then alert
     let submit = document.querySelector('button[type="submit"]');
     submit.addEventListener('click', (e) => {
         let nisValue = nis.value;
@@ -184,6 +183,13 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: 'NIS atau RFID tidak ditemukan!',
+            });
+        } else if (jumlah.value == 'Rp 0') {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Jumlah tidak boleh 0!',
             });
         }
     });
