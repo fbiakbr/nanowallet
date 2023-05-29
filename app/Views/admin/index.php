@@ -16,36 +16,45 @@
         </nav>
     </div>
     <div class="row">
-        <div class="col-md-4 stretch-card grid-margin">
+        <div class="col-md-3 stretch-card grid-margin">
             <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
                     <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Weekly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    <h4 class="font-weight-normal mb-3">Total Pemasukan <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                     </h4>
-                    <h2 class="mb-5">$ 15,0000</h2>
-                    <h6 class="card-text">Increased by 60%</h6>
+                    <h3 class="mb-5 pt-5"><?= "Rp " . number_format(array_sum(array_column($pemasukan, 'jumlah')), 0, ',', '.') ?></h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 stretch-card grid-margin">
+        <div class="col-md-3 stretch-card grid-margin">
             <div class="card bg-gradient-info card-img-holder text-white">
                 <div class="card-body">
                     <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Weekly Orders <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    <h4 class="font-weight-normal mb-3">Pemasukan <br>Bulan Ini <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                     </h4>
-                    <h2 class="mb-5">45,6334</h2>
-                    <h6 class="card-text">Decreased by 10%</h6>
+                    <h3 class="mb-5 pt-4"><?= "Rp " . number_format(array_sum(array_column($pemasukan_this_month, 'jumlah')), 0, ',', '.') ?></h3>
+                    <h6 class="card-text"><?= $check_increase_decrease ?> <?= number_format($pemasukan_this_month_percentage) ?>% since last month</h6>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 stretch-card grid-margin">
+        <div class="col-md-3 stretch-card grid-margin">
             <div class="card bg-gradient-success card-img-holder text-white">
                 <div class="card-body">
                     <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Visitors Online <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                    <h4 class="font-weight-normal mb-3">Total Pengeluaran <i class="mdi mdi-vote-outline mdi-24px float-right"></i>
                     </h4>
-                    <h2 class="mb-5">95,5741</h2>
-                    <h6 class="card-text">Increased by 5%</h6>
+                    <h3 class="mb-5 pt-5"><?= "Rp " . number_format(array_sum(array_column($pengeluaran, 'jumlah')), 0, ',', '.') ?></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 stretch-card grid-margin">
+            <div class="card bg-gradient-primary card-img-holder text-white">
+                <div class="card-body">
+                    <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Pengeluaran <br>Bulan Ini <i class="mdi mdi-vector-arrange-above mdi-24px float-right"></i>
+                    </h4>
+                    <h3 class="mb-5 pt-4"><?= "Rp " . number_format(array_sum(array_column($pengeluaran_this_month, 'jumlah')), 0, ',', '.') ?></h3>
+                    <h6 class="card-text"><?= $check_increase_decrease_pengeluaran ?> <?= number_format($pengeluaran_this_month_percentage) ?>% since last month</h6>
                 </div>
             </div>
         </div>

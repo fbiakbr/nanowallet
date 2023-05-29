@@ -2,19 +2,34 @@
 
 namespace App\Controllers;
 
+use Dompdf\Dompdf;
 use App\Models\Kelas;
 use App\Models\Saldo;
 use App\Models\Siswa;
 use App\Models\Pemasukan;
-use Dompdf\Dompdf;
+use App\Models\Pengeluaran;
 use App\Controllers\BaseController;
 
 class Admin extends BaseController
 {
     public function index()
     {
+        $pemasukan = new Pemasukan();
+        $pengeluaran = new Pengeluaran();
+        $saldo = new Saldo();
         $data = [
-            'title' => 'Admin | Dashboard'
+            'title' => 'Admin | Dashboard',
+            'pemasukan' => $pemasukan->findAll(),
+            'pengeluaran' => $pengeluaran->findAll(),
+            'saldo' => $saldo->findAll(),
+            'pemasukan_past' => $pemasukan->where('MONTH(tgl_pemasukan)', date('m') - 1)->findAll(),
+            'pemasukan_this_month' => $pemasukan->where('MONTH(tgl_pemasukan)', date('m'))->findAll(),
+            'pemasukan_this_month_percentage' => count($pemasukan->where('MONTH(tgl_pemasukan)', date('m'))->findAll()) / count($pemasukan->findAll()) * 100,
+            'check_increase_decrease' => count($pemasukan->where('MONTH(tgl_pemasukan)', date('m'))->findAll()) > count($pemasukan->where('MONTH(tgl_pemasukan)', date('m') - 1)->findAll()) ? 'Increased' : 'Decreased',
+            'pengeluaran_past' => $pengeluaran->where('MONTH(tgl_pengeluaran)', date('m') - 1)->findAll(),
+            'pengeluaran_this_month' => $pengeluaran->where('MONTH(tgl_pengeluaran)', date('m'))->findAll(),
+            'pengeluaran_this_month_percentage' => count($pengeluaran->where('MONTH(tgl_pengeluaran)', date('m'))->findAll()) / count($pengeluaran->findAll()) * 100,
+            'check_increase_decrease_pengeluaran' => count($pengeluaran->where('MONTH(tgl_pengeluaran)', date('m'))->findAll()) > count($pengeluaran->where('MONTH(tgl_pengeluaran)', date('m') - 1)->findAll()) ? 'Increased' : 'Decreased',
         ];
         return view('admin/index', $data);
     }
@@ -114,5 +129,14 @@ class Admin extends BaseController
         $pemasukan->where('id_pemasukan', $id_pemasukan)->delete();
         session()->setFlashdata('message', 'Data pemasukan berhasil dihapus');
         return redirect()->to(base_url('admin/data_pemasukan'));
+    }
+    public function data_pengeluaran()
+    {
+        $pengeluaran = new Pengeluaran();
+        $data = [
+            'title' => 'Admin | Data Pengeluaran',
+            'data' => $pengeluaran->findAll()
+        ];
+        return view('admin/data_pengeluaran', $data);
     }
 }

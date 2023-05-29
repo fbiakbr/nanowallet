@@ -7,13 +7,13 @@ use CodeIgniter\Model;
 class Pengeluaran extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'pengeluarans';
-    protected $primaryKey       = 'id';
+    protected $table            = 'pengeluaran';
+    protected $primaryKey       = 'id_pengeluaran';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['tgl_pengeluaran', 'jam', 'nis', 'nama_siswa', 'kelas', 'jumlah', 'keterangan'];
 
     // Dates
     protected $useTimestamps = false;
