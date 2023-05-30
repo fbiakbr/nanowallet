@@ -139,4 +139,18 @@ class Admin extends BaseController
         ];
         return view('admin/data_pengeluaran', $data);
     }
+    public function invoice_pengeluaran()
+    {
+        $pengeluaran = new Pengeluaran();
+        $filename = 'Invoice Pengeluaran - ' . $pengeluaran->where('id_pengeluaran', $this->request->uri->getSegment(3))->first()['nama_siswa'] . '.pdf';
+        $data = [
+            'title' => 'Admin | Invoice Pengeluaran',
+            'data' => $pengeluaran->where('id_pengeluaran', $this->request->uri->getSegment(3))->first()
+        ];
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('admin/invoice_pengeluaran', $data));
+        $dompdf->setPaper('A5', 'portrait');
+        $dompdf->render();
+        $dompdf->stream($filename, ['Attachment' => false]);
+    }
 }

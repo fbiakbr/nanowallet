@@ -20,6 +20,9 @@
     <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.ico') ?>" />
     <!-- Sweetalert -->
     <link rel="stylesheet" href="<?= base_url('assets/sweetalert/sweetalert2.min.css') ?>">
+    <!-- Datatables -->
+    <link rel="stylesheet" href="<?= base_url('assets/datatables/dataTables.bootstrap5.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/datatables/table-datatable.css') ?>">
 </head>
 
 <body>
@@ -137,6 +140,10 @@
     <!-- End custom js for this page -->
     <!-- Sweetalert -->
     <script src="<?= base_url('assets/sweetalert/sweetalert2.all.min.js') ?>"></script>
+    <!-- Datatables -->
+    <script src="<?= base_url('assets/datatables/dataTables.min.js') ?>"></script>
+    <script src="<?= base_url('assets/datatables/dataTables.js') ?>"></script>
+    <script src="<?= base_url('assets/datatables/jquery.min.js') ?>"></script>
 </body>
 
 </html>

@@ -10,12 +10,12 @@
                             <?= session()->getFlashdata('message') ?>
                         </div>
                     <?php endif; ?>
-                    <h4 class="card-title">Data Pemasukan</h4>
-                    <table id="myTable" class="table table-bordered">
+                    <h4 class="card-title">Data Pengeluaran</h4>
+                    <table id="table1" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Tanggal Pegeluaran</th>
+                                <th>Tanggal Pengeluaran</th>
                                 <th>Jam</th>
                                 <th>NIS</th>
                                 <th>Nama Siswa</th>
@@ -37,16 +37,15 @@
                             foreach ($data as $key => $value) : ?>
                                 <tr>
                                     <td><?= $key + 1 ?></td>
-                                    <td><?= $value['tgl_pegeluaran'] ?></td>
+                                    <td><?= $value['tgl_pengeluaran'] ?></td>
                                     <td><?= $value['jam'] ?></td>
                                     <td><?= $value['nis'] ?></td>
                                     <td><?= $value['nama_siswa'] ?></td>
                                     <td><?= $value['kelas'] ?></td>
                                     <td><?= "Rp " . number_format($value['jumlah'], 0, ',', '.') ?></td>
+                                    <td><?= $value['keterangan'] ?></td>
                                     <td>
-                                        <a href="<?= base_url('admin/delete_pemasukan/' . $value['id_pemasukan']) ?>" id="hapusPemasukan" class="btn btn-danger btn-sm" onclick="alertDelete(event)"><span class="mdi mdi-delete"></span> Hapus</a>
-                                    <td>
-                                        <a href="<?= base_url('admin/invoice_pemasukan/' . $value['id_pemasukan']) ?>" class="btn btn-primary btn-sm"><span class="mdi mdi-note-text"></span> Invoice</a>
+                                        <a href="<?= base_url('admin/invoice_pengeluaran/' . $value['id_pengeluaran']) ?>" class="btn btn-primary btn-sm"><span class="mdi mdi-note-text"></span> Invoice</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -57,23 +56,4 @@
         </div>
     </div>
 </div>
-<script>
-    let alertDelete = (e) => {
-        e.preventDefault();
-        Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: "Data yang dihapus tidak dapat dikembalikan!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Hapus',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.location.href = hapusPemasukan.href;
-            }
-        })
-    }
-</script>
 <?= $this->endSection(); ?>

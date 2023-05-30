@@ -11,7 +11,7 @@
                         </div>
                     <?php endif; ?>
                     <h4 class="card-title">Data Pemasukan</h4>
-                    <table id="myTable" class="table table-bordered">
+                    <table id="table1" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>No</th>
