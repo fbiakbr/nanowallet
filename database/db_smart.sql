@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2023 at 02:41 PM
+-- Generation Time: May 30, 2023 at 09:52 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -129,7 +129,14 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (31, '::1', 'admin@smknutirto.sc.id', 1, '2023-05-25 08:39:52', 1),
 (32, '::1', 'admin@smknutirto.sc.id', 1, '2023-05-25 15:20:56', 1),
 (33, '::1', 'admin@smknutirto.sc.id', 1, '2023-05-25 17:06:53', 1),
-(34, '::1', 'admin@smknutirto.sc.id', 1, '2023-05-27 11:40:32', 1);
+(34, '::1', 'admin@smknutirto.sc.id', 1, '2023-05-27 11:40:32', 1),
+(35, '::1', 'admin@smknutirto.sc.id', 1, '2023-05-29 17:35:35', 1),
+(36, '127.0.0.1', 'admin@smknutirto.sc.id', 1, '2023-05-30 01:05:16', 1),
+(37, '127.0.0.1', 'admin@smknutirto.sc.id', 1, '2023-05-30 02:17:11', 1),
+(38, '127.0.0.1', 'admin2@smknutirto.sch.id', 3, '2023-05-30 03:14:45', 1),
+(39, '127.0.0.1', 'admin', NULL, '2023-05-30 03:15:12', 0),
+(40, '127.0.0.1', 'admin@smknutirto.sc.id', 1, '2023-05-30 03:15:18', 1),
+(41, '127.0.0.1', 'admin2@smknutirto.sch.id', 3, '2023-05-30 03:16:32', 1);
 
 -- --------------------------------------------------------
 
@@ -253,6 +260,16 @@ CREATE TABLE `pemasukan` (
   `keterangan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `pemasukan`
+--
+
+INSERT INTO `pemasukan` (`id_pemasukan`, `tgl_pemasukan`, `jam`, `nis`, `nama_siswa`, `kelas`, `jumlah`, `keterangan`) VALUES
+(33, '2023-05-29', '20:47:27', '6290', 'M FADHIL FERDIANSYAH', 'XI TJKT 1', 9500000, ''),
+(34, '2023-05-29', '20:47:55', '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 3200000, ''),
+(35, '2023-04-30', '08:00:46', '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 12000000, ''),
+(36, '2023-05-30', '02:03:23', '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 30000, '');
+
 -- --------------------------------------------------------
 
 --
@@ -270,7 +287,6 @@ CREATE TABLE `pembayaran` (
   `jam` time NOT NULL,
   `jumlah_bayar` int(11) NOT NULL,
   `sisa_tagihan` int(11) NOT NULL,
-  `kembalian` int(11) NOT NULL,
   `status_pembayaran` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -278,17 +294,12 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id_pembayaran`, `nis`, `nama_siswa`, `kelas`, `tagihan`, `bulan`, `tanggal_pembayaran`, `jam`, `jumlah_bayar`, `sisa_tagihan`, `kembalian`, `status_pembayaran`) VALUES
-(39, '6290', 'M FADHIL FERDIANSYAH', 'XI TJKT 1', 110000, 'JANUARI', '2023-05-25', '22:29:36', 120000, 0, 10000, 'LUNAS'),
-(40, '6290', 'M FADHIL FERDIANSYAH', 'XI TJKT 1', 110000, 'FEBRUARI', '2023-05-25', '22:30:21', 120000, 0, 10000, 'LUNAS'),
-(41, '6290', 'M FADHIL FERDIANSYAH', 'XI TJKT 1', 110000, 'MARET', '2023-05-25', '22:58:53', 110000, 0, 0, 'LUNAS'),
-(42, '6290', 'M FADHIL FERDIANSYAH', 'XI TJKT 1', 110000, 'APRIL', '2023-05-25', '22:59:21', 110000, 0, 0, 'LUNAS'),
-(43, '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'JANUARI', '2023-05-25', '23:04:44', 110000, 0, 0, 'LUNAS'),
-(45, '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'FEBRUARI', '2023-05-25', '23:07:11', 110000, 0, 0, 'LUNAS'),
-(46, '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'SEPTEMBER', '2023-05-25', '23:11:34', 200000, 0, 90000, 'LUNAS'),
-(47, '6289', 'FATKHUL MANAN', 'XI TJKT 1', 110000, 'JANUARI', '2023-05-25', '23:56:12', 110000, 0, 0, 'LUNAS'),
-(48, '6282', 'AHMAD AZRIL AFIF', 'XI TJKT 1', 110000, 'JANUARI', '2023-05-26', '00:08:35', 110000, 0, 0, 'LUNAS'),
-(49, '6120', 'M KHOIRUL ANAM', 'XI TJKT 2', 110000, 'JUNI', '2023-05-27', '18:41:17', 120000, 0, 10000, 'LUNAS');
+INSERT INTO `pembayaran` (`id_pembayaran`, `nis`, `nama_siswa`, `kelas`, `tagihan`, `bulan`, `tanggal_pembayaran`, `jam`, `jumlah_bayar`, `sisa_tagihan`, `status_pembayaran`) VALUES
+(52, '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'JANUARI', '2023-05-30', '01:46:05', 110000, 0, 'LUNAS'),
+(53, '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'FEBRUARI', '2023-05-30', '01:53:53', 110000, 0, 'LUNAS'),
+(54, '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'APRIL', '2023-05-30', '01:54:23', 2900000, 0, 'LUNAS'),
+(55, '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'MARET', '2023-05-30', '01:55:04', 110000, 0, 'LUNAS'),
+(56, '6290', 'M FADHIL FERDIANSYAH', 'XI TJKT 1', 110000, 'JUNI', '2023-05-30', '01:57:47', 9400000, 0, 'LUNAS');
 
 -- --------------------------------------------------------
 
@@ -299,13 +310,24 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `nis`, `nama_siswa`, `kelas`, `tagiha
 CREATE TABLE `pengeluaran` (
   `id_pengeluaran` int(11) NOT NULL,
   `tgl_pengeluaran` date NOT NULL,
-  `jam` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `jam` time NOT NULL,
   `nis` varchar(11) NOT NULL,
   `nama_siswa` varchar(100) NOT NULL,
   `kelas` varchar(15) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `keterangan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengeluaran`
+--
+
+INSERT INTO `pengeluaran` (`id_pengeluaran`, `tgl_pengeluaran`, `jam`, `nis`, `nama_siswa`, `kelas`, `jumlah`, `keterangan`) VALUES
+(4, '2023-05-30', '01:46:05', '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'PEMBAYARAN SPP'),
+(5, '2023-05-30', '01:53:53', '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'PEMBAYARAN SPP'),
+(6, '2023-05-30', '01:54:23', '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 2900000, 'PEMBAYARAN SPP'),
+(7, '2023-05-30', '01:55:04', '6291', 'M. WILDAN ILMI', 'XI TJKT 1', 110000, 'PEMBAYARAN SPP'),
+(8, '2023-05-30', '01:57:47', '6290', 'M FADHIL FERDIANSYAH', 'XI TJKT 1', 9400000, 'PEMBAYARAN SPP');
 
 -- --------------------------------------------------------
 
@@ -325,7 +347,7 @@ CREATE TABLE `saldo` (
 
 INSERT INTO `saldo` (`id_saldo`, `nis`, `saldo`) VALUES
 (1, '6291', 0),
-(2, '6290', 0),
+(2, '6290', 100000),
 (4, '6289', 0),
 (5, '6282', 0);
 
@@ -435,7 +457,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin@smknutirto.sc.id', 'admin', '$2y$10$WQCXRbPYaJ1s00QGNw2skuqIPGYttX3dTI80cEwyZKUPVpuajfmJK', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-05-16 06:05:16', '2023-05-16 06:05:16', NULL);
+(1, 'admin@smknutirto.sc.id', 'admin', '$2y$10$WQCXRbPYaJ1s00QGNw2skuqIPGYttX3dTI80cEwyZKUPVpuajfmJK', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-05-16 06:05:16', '2023-05-16 06:05:16', NULL),
+(3, 'admin2@smknutirto.sch.id', 'admin2', '$2y$10$miuWeouGsbMhg6O1taNiNeO49AYVtxbr.E6KNt7iyRaYkvN8yaDv6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2023-05-30 02:59:19', '2023-05-30 02:59:19', NULL);
 
 --
 -- Indexes for dumped tables
@@ -577,7 +600,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -613,31 +636,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pemasukan`
 --
 ALTER TABLE `pemasukan`
-  MODIFY `id_pemasukan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pemasukan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `saldo`
 --
 ALTER TABLE `saldo`
-  MODIFY `id_saldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_saldo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
