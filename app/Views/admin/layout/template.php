@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="<?= base_url('admin/logout') ?>">
                             <i class="mdi mdi-power"></i>
                         </a>
                     </li>

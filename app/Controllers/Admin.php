@@ -153,4 +153,13 @@ class Admin extends BaseController
         $dompdf->render();
         $dompdf->stream($filename, ['Attachment' => false]);
     }
+    public function login()
+    {
+        return view('admin/login');
+    }
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to(base_url('admin'));
+    }
 }
