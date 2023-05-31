@@ -33,7 +33,7 @@
                 <a class="navbar-brand brand-logo" href="<?= base_url('admin/index') ?>">
                     <h4 class="font-weight-bold">SMART WALLET</h4>
                 </a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?= base_url('assets/images/logo-mini.svg') ?>" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="<?= base_url('admin/index') ?>"><img src="<?= base_url('assets/images/logo-mini.svg') ?>" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="<?= base_url('admin/logout') ?>">
+                        <a id="logout" class="nav-link" href="<?= base_url('admin/logout') ?>">
                             <i class="mdi mdi-power"></i>
                         </a>
                     </li>
@@ -145,6 +145,27 @@
     <script src="<?= base_url('assets/datatables/dataTables.min.js') ?>"></script>
     <script src="<?= base_url('assets/datatables/dataTables.js') ?>"></script>
     <script src="<?= base_url('assets/datatables/jquery.min.js') ?>"></script>
+    <script>
+        let logout = document.getElementById('logout');
+
+        logout.addEventListener('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan keluar dari aplikasi ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#8142ff',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Keluar!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "<?= base_url('admin/logout') ?>";
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

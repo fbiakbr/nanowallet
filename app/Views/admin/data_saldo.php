@@ -11,6 +11,7 @@
                         </div>
                     <?php endif; ?>
                     <h4 class="card-title">Data Saldo</h4>
+                    <a href="<?= base_url('admin/pdf_saldo') ?>" class="btn btn-primary btn-sm mb-3"><span class="mdi mdi-printer"></span> Export PDF</a>
                     <table id="table1" class="table table-bordered">
                         <thead>
                             <tr>

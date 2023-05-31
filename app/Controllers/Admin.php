@@ -52,6 +52,29 @@ class Admin extends BaseController
         ];
         return view('admin/data_saldo', $data);
     }
+    public function pdf_saldo()
+    {
+        $saldo = new Saldo();
+        $siswa = new Siswa();
+        $kelas = new Kelas();
+        $data = [];
+        foreach ($saldo->findAll() as $key => $value) {
+            $data[$key]['id_saldo'] = $value['id_saldo'];
+            $data[$key]['nis'] = $value['nis'];
+            $data[$key]['saldo'] = $value['saldo'];
+            $data[$key]['nama_siswa'] = $siswa->where('nis', $value['nis'])->first()['nama_siswa'];
+            $data[$key]['kelas'] = $kelas->where('id_kelas', $siswa->where('nis', $value['nis'])->first()['kelas'])->first()['nama_kelas'];
+        }
+        $filename = 'Data Saldo - ' . date('d-m-Y') . '.pdf';
+        $data = [
+            'data' => $data
+        ];
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('admin/pdf_saldo', $data));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream($filename, ['Attachment' => false]);
+    }
     public function input_pemasukan()
     {
         $siswa = new Siswa();
@@ -119,6 +142,20 @@ class Admin extends BaseController
         $dompdf->render();
         $dompdf->stream($filename, ['Attachment' => false]);
     }
+    public function pdf_pemasukan()
+    {
+        $pemasukan = new Pemasukan();
+        $filename = 'Data Pemasukan - ' . date('d-m-Y') . '.pdf';
+        $data = [
+            'title' => 'Admin | Data Pemasukan',
+            'data' => $pemasukan->findAll()
+        ];
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('admin/pdf_pemasukan', $data));
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream($filename, ['Attachment' => false]);
+    }
     public function delete_pemasukan($id_pemasukan)
     {
         $pemasukan = new Pemasukan();
@@ -150,6 +187,20 @@ class Admin extends BaseController
         $dompdf = new Dompdf();
         $dompdf->loadHtml(view('admin/invoice_pengeluaran', $data));
         $dompdf->setPaper('A5', 'portrait');
+        $dompdf->render();
+        $dompdf->stream($filename, ['Attachment' => false]);
+    }
+    public function pdf_pengeluaran()
+    {
+        $pengeluaran = new Pengeluaran();
+        $filename = 'Data Pengeluaran - ' . date('d-m-Y') . '.pdf';
+        $data = [
+            'title' => 'Admin | Data Pengeluaran',
+            'data' => $pengeluaran->findAll()
+        ];
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('admin/pdf_pengeluaran', $data));
+        $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $dompdf->stream($filename, ['Attachment' => false]);
     }

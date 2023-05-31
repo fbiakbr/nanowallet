@@ -33,16 +33,16 @@
                             <h4>Hello! let's get started</h4>
                             <h6 class="font-weight-light">Sign in to continue.</h6>
                             <?= view('Myth\Auth\Views\_message_block') ?>
-                            <form action="<?= url_to('login') ?>" class="pt-3">
+                            <form method="post" action="<?= url_to('login') ?>" class="pt-3">
                                 <?= csrf_field() ?>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="<?= lang('Auth.emailOrUsername') ?>">
+                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="login" placeholder="<?= lang('Auth.emailOrUsername') ?>">
                                     <div class="invalid-feedback">
                                         <?= session('errors.login') ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>">
+                                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" name="password" placeholder="<?= lang('Auth.password') ?>">
                                 </div>
                                 <div class="mt-3">
                                     <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
