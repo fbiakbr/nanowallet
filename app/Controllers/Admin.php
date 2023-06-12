@@ -204,6 +204,19 @@ class Admin extends BaseController
         $dompdf->render();
         $dompdf->stream($filename, ['Attachment' => false]);
     }
+    public function tarik_saldo()
+    {
+        $siswa = new Siswa();
+        $kelas = new Kelas();
+        $saldo = new Saldo();
+        $data = [
+            'title' => 'Admin | Tarik Saldo',
+            'siswa' => $siswa->findAll(),
+            'kelas' => $kelas->findAll(),
+            'saldo' => $saldo->findAll(),
+        ];
+        return view('admin/tarik_saldo', $data);
+    }
     public function login()
     {
         return view('admin/login');

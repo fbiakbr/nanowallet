@@ -102,6 +102,12 @@
                             <i class="mdi mdi-tooltip-plus menu-icon"></i>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('admin/tarik_saldo') ?>">
+                            <span class="menu-title">Tarik Saldo</span>
+                            <i class="mdi mdi-coin menu-icon"></i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- partial -->
