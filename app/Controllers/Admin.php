@@ -9,6 +9,8 @@ use App\Models\Siswa;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Controllers\BaseController;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Admin extends BaseController
 {
@@ -75,12 +77,49 @@ class Admin extends BaseController
         $dompdf->render();
         $dompdf->stream($filename, ['Attachment' => false]);
     }
+    public function excel_saldo()
+    {
+        $saldo = new Saldo();
+        $siswa = new Siswa();
+        $kelas = new Kelas();
+        $data = [];
+        foreach ($saldo->findAll() as $key => $value) {
+            $data[$key]['id_saldo'] = $value['id_saldo'];
+            $data[$key]['nis'] = $value['nis'];
+            $data[$key]['saldo'] = $value['saldo'];
+            $data[$key]['nama_siswa'] = $siswa->where('nis', $value['nis'])->first()['nama_siswa'];
+            $data[$key]['kelas'] = $kelas->where('id_kelas', $siswa->where('nis', $value['nis'])->first()['kelas'])->first()['nama_kelas'];
+        }
+        $data = [
+            'data' => $data
+        ];
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'NIS')
+            ->setCellValue('B1', 'Nama Siswa')
+            ->setCellValue('C1', 'Kelas')
+            ->setCellValue('D1', 'Saldo');
+        $column = 2;
+        foreach ($data['data'] as $key => $value) {
+            $sheet->setCellValue('A' . $column, $value['nis']);
+            $sheet->setCellValue('B' . $column, $value['nama_siswa']);
+            $sheet->setCellValue('C' . $column, $value['kelas']);
+            $sheet->setCellValue('D' . $column, $value['saldo']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'Data Saldo - ' . date('d-m-Y');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function input_pemasukan()
     {
         $siswa = new Siswa();
         $kelas = new Kelas();
         $data = [
-            'title' => 'Admin | Input Pemasukan',
+            'title' => 'Admin | Tambah Saldo',
             'siswa' => $siswa->findAll(),
             'kelas' => $kelas->findAll(),
         ];
@@ -167,6 +206,54 @@ class Admin extends BaseController
         session()->setFlashdata('message', 'Data pemasukan berhasil dihapus');
         return redirect()->to(base_url('admin/data_pemasukan'));
     }
+    public function excel_pemasukan()
+    {
+        $pemasukan = new Pemasukan();
+        $filename = 'Data Pemasukan - ' . date('d-m-Y');
+        $data = [
+            'data' => $pemasukan->findAll()
+        ];
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Tanggal Pemasukan')
+            ->setCellValue('B1', 'Jam')
+            ->setCellValue('C1', 'NIS')
+            ->setCellValue('D1', 'Nama Siswa')
+            ->setCellValue('E1', 'Kelas')
+            ->setCellValue('F1', 'Jumlah')
+            ->setCellValue('G1', 'Keterangan');
+        $column = 2;
+        foreach ($data['data'] as $key => $value) {
+            $bulan = [
+                '01' => 'Januari',
+                '02' => 'Februari',
+                '03' => 'Maret',
+                '04' => 'April',
+                '05' => 'Mei',
+                '06' => 'Juni',
+                '07' => 'Juli',
+                '08' => 'Agustus',
+                '09' => 'September',
+                '10' => 'Oktober',
+                '11' => 'November',
+                '12' => 'Desember',
+            ];
+            $value['tgl_pemasukan'] = date_format(date_create($value['tgl_pemasukan']), "d") . " " . $bulan[date_format(date_create($value['tgl_pemasukan']), "m")] . " " . date_format(date_create($value['tgl_pemasukan']), "Y");
+            $sheet->setCellValue('A' . $column, $value['tgl_pemasukan']);
+            $sheet->setCellValue('B' . $column, $value['jam']);
+            $sheet->setCellValue('C' . $column, $value['nis']);
+            $sheet->setCellValue('D' . $column, $value['nama_siswa']);
+            $sheet->setCellValue('E' . $column, $value['kelas']);
+            $sheet->setCellValue('F' . $column, $value['jumlah']);
+            $sheet->setCellValue('G' . $column, $value['keterangan']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function data_pengeluaran()
     {
         $pengeluaran = new Pengeluaran();
@@ -204,6 +291,54 @@ class Admin extends BaseController
         $dompdf->render();
         $dompdf->stream($filename, ['Attachment' => false]);
     }
+    public function excel_pengeluaran()
+    {
+        $pengeluaran = new Pengeluaran();
+        $filename = 'Data Pengeluaran - ' . date('d-m-Y');
+        $data = [
+            'data' => $pengeluaran->findAll()
+        ];
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Tanggal Pengeluaran')
+            ->setCellValue('B1', 'Jam')
+            ->setCellValue('C1', 'NIS')
+            ->setCellValue('D1', 'Nama Siswa')
+            ->setCellValue('E1', 'Kelas')
+            ->setCellValue('F1', 'Jumlah')
+            ->setCellValue('G1', 'Keterangan');
+        $column = 2;
+        foreach ($data['data'] as $key => $value) {
+            $bulan = [
+                '01' => 'Januari',
+                '02' => 'Februari',
+                '03' => 'Maret',
+                '04' => 'April',
+                '05' => 'Mei',
+                '06' => 'Juni',
+                '07' => 'Juli',
+                '08' => 'Agustus',
+                '09' => 'September',
+                '10' => 'Oktober',
+                '11' => 'November',
+                '12' => 'Desember',
+            ];
+            $value['tgl_pengeluaran'] = date_format(date_create($value['tgl_pengeluaran']), "d") . " " . $bulan[date_format(date_create($value['tgl_pengeluaran']), "m")] . " " . date_format(date_create($value['tgl_pengeluaran']), "Y");
+            $sheet->setCellValue('A' . $column, $value['tgl_pengeluaran']);
+            $sheet->setCellValue('B' . $column, $value['jam']);
+            $sheet->setCellValue('C' . $column, $value['nis']);
+            $sheet->setCellValue('D' . $column, $value['nama_siswa']);
+            $sheet->setCellValue('E' . $column, $value['kelas']);
+            $sheet->setCellValue('F' . $column, $value['jumlah']);
+            $sheet->setCellValue('G' . $column, $value['keterangan']);
+            $column++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
     public function tarik_saldo()
     {
         $siswa = new Siswa();
@@ -216,6 +351,39 @@ class Admin extends BaseController
             'saldo' => $saldo->findAll(),
         ];
         return view('admin/tarik_saldo', $data);
+    }
+    public function save_penarikan()
+    {
+        $saldo = new Saldo();
+        $pengeluaran = new Pengeluaran();
+        $data = [
+            'tgl_pengeluaran' => $this->request->getPost('tgl_pengeluaran'),
+            'jam' => $this->request->getPost('jam'),
+            'nis' => $this->request->getPost('nis'),
+            'nama_siswa' => $this->request->getPost('nama_siswa'),
+            'kelas' => $this->request->getPost('kelas'),
+            'jumlah' => $this->request->getPost('jumlah'),
+            'keterangan' => $this->request->getPost('keterangan'),
+        ];
+        $data['jumlah'] = str_replace('Rp ', '', $data['jumlah']);
+        $data['jumlah'] = str_replace('.', '', $data['jumlah']);
+        $data['jumlah'] = str_replace(',', '.', $data['jumlah']);
+        $data['jumlah'] = (int) $data['jumlah'];
+        // dd($data);
+        $pengeluaran->insert($data);
+        $data_saldo = $saldo->where('nis', $data['nis'])->first();
+        if ($saldo->where('nis', $data['nis'])->first() == null) {
+            $data_saldo = [
+                'nis' => $data['nis'],
+                'saldo' => $data['jumlah']
+            ];
+            $saldo->insert($data_saldo);
+        } else {
+            $data_saldo['saldo'] -= $data['jumlah'];
+            $saldo->update($data_saldo['id_saldo'], $data_saldo);
+        }
+        session()->setFlashdata('message', 'Saldo berhasil ditarik');
+        return redirect()->to(base_url('admin/data_pengeluaran'));
     }
     public function login()
     {

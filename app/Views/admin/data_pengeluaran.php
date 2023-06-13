@@ -12,6 +12,7 @@
                     <?php endif; ?>
                     <h4 class="card-title">Data Pengeluaran</h4>
                     <a href="<?= base_url('admin/pdf_pengeluaran') ?>" class="btn btn-primary btn-sm mb-3"><span class="mdi mdi-printer"></span> Export PDF</a>
+                    <a href="<?= base_url('admin/excel_pengeluaran') ?>" class="btn btn-success btn-sm mb-3"><span class="mdi mdi-file-excel"></span> Export Excel</a>
                     <div class="row table-responsive">
                         <table id="table1" class="table table-bordered">
                             <thead>

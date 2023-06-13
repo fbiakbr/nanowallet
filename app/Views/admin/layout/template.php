@@ -64,8 +64,8 @@
                 <ul class="nav">
                     <li class="nav-item nav-profile">
                         <a href="#" class="nav-link">
-                            <div class="nav-profile-image">
-                                <img src="<?= base_url('assets/images/smk.png') ?>" alt="profile">
+                            <div>
+                                <img src="<?= base_url('assets/images/smk.png') ?>" alt="profile" width="50">
                                 <span class="login-status online"></span>
                                 <!--change to offline or busy as needed-->
                             </div>
@@ -98,7 +98,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('admin/input_pemasukan') ?>">
-                            <span class="menu-title">Input Pemasukan</span>
+                            <span class="menu-title">Tambah Saldo</span>
                             <i class="mdi mdi-tooltip-plus menu-icon"></i>
                         </a>
                     </li>

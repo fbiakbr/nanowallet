@@ -12,6 +12,7 @@
                     <?php endif; ?>
                     <h4 class="card-title">Data Saldo</h4>
                     <a href="<?= base_url('admin/pdf_saldo') ?>" class="btn btn-primary btn-sm mb-3"><span class="mdi mdi-printer"></span> Export PDF</a>
+                    <a href="<?= base_url('admin/excel_saldo') ?>" class="btn btn-success btn-sm mb-3"><span class="mdi mdi-file-excel"></span> Export Excel</a>
                     <table id="table1" class="table table-bordered">
                         <thead>
                             <tr>

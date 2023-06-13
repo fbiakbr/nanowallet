@@ -12,6 +12,7 @@
                     <?php endif; ?>
                     <h4 class="card-title">Data Pemasukan</h4>
                     <a href="<?= base_url('admin/pdf_pemasukan') ?>" class="btn btn-primary btn-sm mb-3"><span class="mdi mdi-printer"></span> Export PDF</a>
+                    <a href="<?= base_url('admin/excel_pemasukan') ?>" class="btn btn-success btn-sm mb-3"><span class="mdi mdi-file-excel"></span> Export Excel</a>
                     <p class="fst-italic"><small>* Mohon untuk tidak menghapus data pemasukan yang sudah ada, karena data pemasukan yang dihapus akan mengurangi saldo dari siswa tersebut.</small></p>
                     <p class="fst-italic"><small>* Terkecuali ada kesalahan input data pemasukan, silahkan hapus data pemasukan yang salah kemudian input ulang.</small></p>
                     <table id="table1" class="table table-bordered">

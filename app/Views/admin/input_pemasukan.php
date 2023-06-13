@@ -5,7 +5,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Input Pemasukan</h4>
+                    <h4 class="card-title">Tambah Saldo</h4>
                     <p class="fst-italic"><small>* Pastikan data yang diinput sudah benar</small></p>
                     <p class="fst-italic"><small>* Apabila data yang diinput salah, silahkan hapus data pemasukan yang salah kemudian input ulang</small></p>
                     <form action="<?= base_url('admin/save_pemasukan') ?>" method="post">
@@ -57,7 +57,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleInputConfirmPassword1">Keterangan</label>
-                                    <input type="text" class="form-control" id="exampleInputConfirmPassword1" placeholder="Keterangan" name="keterangan">
+                                    <input type="text" class="form-control" id="exampleInputConfirmPassword1" placeholder="Keterangan" name="keterangan" readonly>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
 
         tglPemasukan.value = today;
         jam.value = time;
-    }, 1000);
+    }, 100);
 
     let dataSiswa = <?= json_encode($siswa) ?>;
     let dataKelas = <?= json_encode($kelas) ?>;
@@ -170,6 +170,8 @@
     jumlah.addEventListener('keyup', () => {
         jumlah.value = formatRupiah(jumlah.value, 'Rp ');
     });
+
+    keterangan.value = 'ISI SALDO';
 
     let submit = document.querySelector('button[type="submit"]');
     submit.addEventListener('click', (e) => {

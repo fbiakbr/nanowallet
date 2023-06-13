@@ -99,6 +99,22 @@
 </head>
 
 <body>
+    <?php
+    $bulan = [
+        '01' => 'Januari',
+        '02' => 'Februari',
+        '03' => 'Maret',
+        '04' => 'April',
+        '05' => 'Mei',
+        '06' => 'Juni',
+        '07' => 'Juli',
+        '08' => 'Agustus',
+        '09' => 'September',
+        '10' => 'Oktober',
+        '11' => 'November',
+        '12' => 'Desember'
+    ];
+    ?>
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -112,8 +128,8 @@
 
                             <td>
                                 Invoice #: SMART<?= $data['id_pemasukan'] ?><br />
-                                Created: <?= date_format(date_create($data['tgl_pemasukan']), "d F Y") ?><br />
-                                Due: <?= date_format(date_add(date_create($data['tgl_pemasukan']), date_interval_create_from_date_string("1 month")), "d F Y") ?>
+                                Created: <?= date_format(date_create($data['tgl_pemasukan']), "d") . " " . $bulan[date_format(date_create($data['tgl_pemasukan']), "m")] . " " . date_format(date_create($data['tgl_pemasukan']), "Y") ?><br />
+                                Due: <?= date_format(date_add(date_create($data['tgl_pemasukan']), date_interval_create_from_date_string("1 month")), "d") . " " . $bulan[date_format(date_add(date_create($data['tgl_pemasukan']), date_interval_create_from_date_string("1 month")), "m")] . " " . date_format(date_add(date_create($data['tgl_pemasukan']), date_interval_create_from_date_string("1 month")), "Y") ?>
                             </td>
                         </tr>
                     </table>
@@ -145,18 +161,22 @@
 
             <tr class="item">
                 <td>Tanggal</td>
-
-                <td><?= date_format(date_create($data['tgl_pemasukan']), "d F Y") ?></td>
+                <td><?= date_format(date_create($data['tgl_pemasukan']), "d") . " " . $bulan[date_format(date_create($data['tgl_pemasukan']), "m")] . " " . date_format(date_create($data['tgl_pemasukan']), "Y") ?></td>
             </tr>
             <tr class="item">
                 <td>Jam</td>
 
                 <td><?= $data['jam'] ?></td>
             </tr>
-            <tr class="item last">
+            <tr class="item">
                 <td>Jumlah</td>
 
-                <td style="font-weight: bold;"><?= "Rp " . number_format($data['jumlah'], 0, ',', '.') ?></td>
+                <td style=" font-weight: bold;"><?= "Rp " . number_format($data['jumlah'], 0, ',', '.') ?></td>
+            </tr>
+            <tr class="item last">
+                <td>Keterangan</td>
+
+                <td><?= $data['keterangan'] ?></td>
             </tr>
         </table>
     </div>

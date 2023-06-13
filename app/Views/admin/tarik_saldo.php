@@ -106,7 +106,7 @@
 
         tglPemasukan.value = today;
         jam.value = time;
-    }, 1000);
+    }, 100);
 
     let dataSiswa = <?= json_encode($siswa) ?>;
     let dataKelas = <?= json_encode($kelas) ?>;
@@ -125,7 +125,7 @@
         let tanggalLahirString = tanggalLahir[2] + tanggalLahir[1] + tanggalLahir[0];
         dataPIN.push(tanggalLahirString);
     });
-    console.log(dataPIN);
+    // console.log(dataPIN);
 
     let rfid = document.querySelector('input[name="rfid"]');
     let nis = document.querySelector('input[name="nis"]');

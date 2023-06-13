@@ -17,16 +17,6 @@
     </div>
     <div class="row">
         <div class="col-md-3 stretch-card grid-margin">
-            <div class="card bg-gradient-danger card-img-holder text-white">
-                <div class="card-body">
-                    <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Total Pemasukan <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-                    </h4>
-                    <h3 class="mb-5 pt-5"><?= "Rp " . number_format(array_sum(array_column($pemasukan, 'jumlah')), 0, ',', '.') ?></h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 stretch-card grid-margin">
             <div class="card bg-gradient-info card-img-holder text-white">
                 <div class="card-body">
                     <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
@@ -38,12 +28,12 @@
             </div>
         </div>
         <div class="col-md-3 stretch-card grid-margin">
-            <div class="card bg-gradient-success card-img-holder text-white">
+            <div class="card bg-gradient-danger card-img-holder text-white">
                 <div class="card-body">
                     <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Total Pengeluaran <i class="mdi mdi-vote-outline mdi-24px float-right"></i>
+                    <h4 class="font-weight-normal mb-3">Total Pemasukan <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                     </h4>
-                    <h3 class="mb-5 pt-5"><?= "Rp " . number_format(array_sum(array_column($pengeluaran, 'jumlah')), 0, ',', '.') ?></h3>
+                    <h3 class="mb-5 pt-5"><?= "Rp " . number_format(array_sum(array_column($pemasukan, 'jumlah')), 0, ',', '.') ?></h3>
                 </div>
             </div>
         </div>
@@ -55,6 +45,16 @@
                     </h4>
                     <h3 class="mb-5 pt-4"><?= "Rp " . number_format(array_sum(array_column($pengeluaran_this_month, 'jumlah')), 0, ',', '.') ?></h3>
                     <h6 class="card-text"><?= $check_increase_decrease_pengeluaran ?> <?= number_format($pengeluaran_this_month_percentage) ?>% since last month</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 stretch-card grid-margin">
+            <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                    <img src="<?= base_url('assets/images/dashboard/circle.svg') ?>" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Total Pengeluaran <i class="mdi mdi-vote-outline mdi-24px float-right"></i>
+                    </h4>
+                    <h3 class="mb-5 pt-5"><?= "Rp " . number_format(array_sum(array_column($pengeluaran, 'jumlah')), 0, ',', '.') ?></h3>
                 </div>
             </div>
         </div>
@@ -128,38 +128,33 @@
         }
     });
 
+
+    let pengeluaran = <?= json_encode($pengeluaran) ?>;
+    let keterangan_pengeluaran = [];
+    let jumlah_pengeluaran = [];
+    pengeluaran.forEach(element => {
+        keterangan_pengeluaran.push(element.keterangan);
+        jumlah_pengeluaran.push(element.jumlah);
+    });
+
+    let keterangan_pengeluaran_unique = [...new Set(keterangan_pengeluaran)];
+
+    let jumlah_pengeluaran_int = jumlah_pengeluaran.map(Number);
+
+    let jumlah_pengeluaran_unique = [];
+    for (let i = 0; i < keterangan_pengeluaran_unique.length; i++) {
+        jumlah_pengeluaran_unique.push(jumlah_pengeluaran_int.filter((x, j) => keterangan_pengeluaran[j] === keterangan_pengeluaran_unique[i]).reduce((a, b) => a + b, 0));
+    }
+
     let totalpengeluaran = document.getElementById('totalpengeluaran');
     let totalpengeluaranChart = new Chart(totalpengeluaran, {
         type: 'doughnut',
         data: {
-            labels: [
-                <?php foreach ($pengeluaran_this_month as $key => $value) : ?> '<?= $value['keterangan'] ?>',
-                <?php endforeach; ?>
-            ],
+            labels: keterangan_pengeluaran_unique,
             datasets: [{
                 label: 'Total Pengeluaran',
-                data: [
-                    <?php foreach ($pengeluaran_this_month as $key => $value) : ?>
-                        <?= $value['jumlah'] ?>,
-                    <?php endforeach; ?>
-                ],
+                data: keterangan_pengeluaran_unique.map((x, i) => jumlah_pengeluaran_unique[i]),
                 backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 205, 86)',
-                    'rgb(54, 162, 235)',
-                    'rgb(75, 192, 192)',
-                    'rgb(153, 102, 255)',
-                    'rgb(255, 159, 64)',
-                    'rgb(201, 203, 207)',
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 205, 86)',
-                    'rgb(54, 162, 235)',
-                    'rgb(75, 192, 192)',
-                    'rgb(153, 102, 255)',
-                    'rgb(255, 159, 64)',
-                    'rgb(201, 203, 207)',
-                ],
-                borderColor: [
                     'rgb(255, 99, 132)',
                     'rgb(255, 205, 86)',
                     'rgb(54, 162, 235)',
@@ -178,13 +173,6 @@
                 borderWidth: 1,
             }]
         },
-        options: {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
     });
 </script>
 <?= $this->endSection(); ?>
