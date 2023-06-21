@@ -26,6 +26,7 @@
                                     <th>Jumlah</th>
                                     <th>Keterangan</th>
                                     <th>Invoice</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,6 +51,14 @@
                                         <td>
                                             <a href="<?= base_url('admin/invoice_pengeluaran/' . $value['id_pengeluaran']) ?>" class="btn btn-primary btn-sm"><span class="mdi mdi-note-text"></span> Invoice</a>
                                         </td>
+                                        <td class="text-center">
+                                            <?php if ($value['keterangan'] == "PENARIKAN SALDO") : ?>
+                                                <a href="<?= base_url('admin/delete_pengeluaran/' . $value['id_pengeluaran']) ?>" id="hapusPengeluaran" class="btn btn-danger btn-sm" onclick="alertDelete(event)"><span class="mdi mdi-delete"></span> Hapus</a>
+                                            <?php endif; ?>
+                                            <?php if ($value['keterangan'] != "PENARIKAN SALDO") : ?>
+                                                -
+                                            <?php endif; ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -60,4 +69,24 @@
         </div>
     </div>
 </div>
+<script>
+    let hapusPengeluaran = document.getElementById('hapusPengeluaran');
+    let alertDelete = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.location.href = hapusPengeluaran.href;
+            }
+        })
+    }
+</script>
 <?= $this->endSection(); ?>

@@ -6,8 +6,9 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Tambah Saldo</h4>
-                    <p class="fst-italic"><small>* Pastikan data yang diinput sudah benar</small></p>
-                    <p class="fst-italic"><small>* Apabila data yang diinput salah, silahkan hapus data pemasukan yang salah kemudian input ulang</small></p>
+                    <p class="fw-bold"><small>* Pastikan data yang diinput sudah benar.</small></p>
+                    <p class="fw-bold"><small>* Apabila data yang diinput salah, silahkan hapus data pemasukan yang salah kemudian input ulang.</small></p>
+
                     <form action="<?= base_url('admin/save_pemasukan') ?>" method="post">
                         <div class="row">
                             <div class="col-md-3">

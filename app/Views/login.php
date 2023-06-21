@@ -37,7 +37,7 @@
                             <form method="post" action="<?= url_to('login') ?>" class="pt-3">
                                 <?= csrf_field() ?>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="login" placeholder="<?= lang('Auth.emailOrUsername') ?>">
+                                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" name="login" placeholder="<?= lang('Auth.emailOrUsername') ?>" autofocus>
                                     <div class="invalid-feedback">
                                         <?= session('errors.login') ?>
                                     </div>

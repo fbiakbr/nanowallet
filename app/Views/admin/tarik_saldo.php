@@ -6,8 +6,10 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Tarik Saldo</h4>
-                    <p class="fst-italic"><small>* Pastikan data yang diinput sudah benar</small></p>
-                    <p class="fst-italic"><small>* Apabila data yang diinput salah, silahkan hapus pada data pengeluaran kemudian input ulang</small></p>
+                    <p class="fw-bold"><small>* Pastikan data siswa sudah terdaftar dan saldo siswa mencukupi untuk melakukan penarikan saldo.</small></p>
+                    <p class="fw-bold"><small>* Minimal penarikan saldo adalah Rp 10.000.</small></p>
+                    <p class="fw-bold"><small>* Akan ada konfirmasi PIN untuk melakukan penarikan saldo.</small></p>
+                    <p class="fw-bold"><small>* Mohon konfirmasi PIN kepada siswa sebelum melakukan penarikan saldo.</small></p>
                     <form action="<?= base_url('admin/save_penarikan') ?>" method="post">
                         <div class="row">
                             <div class="col-md-3">

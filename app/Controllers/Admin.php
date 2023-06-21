@@ -339,6 +339,17 @@ class Admin extends BaseController
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
     }
+    public function delete_pengeluaran($id_pengeluaran)
+    {
+        $pengeluaran = new Pengeluaran();
+        $saldo = new Saldo();
+        $data_saldo = $saldo->where('nis', $pengeluaran->where('id_pengeluaran', $id_pengeluaran)->first()['nis'])->first();
+        $data_saldo['saldo'] += $pengeluaran->where('id_pengeluaran', $id_pengeluaran)->first()['jumlah'];
+        $saldo->update($data_saldo['id_saldo'], $data_saldo);
+        $pengeluaran->where('id_pengeluaran', $id_pengeluaran)->delete();
+        session()->setFlashdata('message', 'Data pengeluaran berhasil dihapus');
+        return redirect()->to(base_url('admin/data_pengeluaran'));
+    }
     public function tarik_saldo()
     {
         $siswa = new Siswa();
