@@ -396,6 +396,41 @@ class Admin extends BaseController
         session()->setFlashdata('message', 'Saldo berhasil ditarik');
         return redirect()->to(base_url('admin/data_pengeluaran'));
     }
+    public function kehilangan_kartu()
+    {
+        $siswa = new Siswa();
+        $kelas = new Kelas();
+        $data = [
+            'title' => 'Admin | Kehilangan Kartu',
+            'siswa' => $siswa->findAll(),
+            'kelas' => $kelas->findAll(),
+        ];
+        return view('admin/kehilangan_kartu', $data);
+    }
+    public function form_kehilangan()
+    {
+        $file = '../public/doc/form_kehilangan.pdf';
+        return $this->response->download($file, null);
+    }
+    public function update_kartu()
+    {
+        $rfid = $this->request->getGet('rfid');
+        $siswa = new Siswa();
+        $kelas = new Kelas();
+        $id_kelas = $siswa->where('rfid', $rfid)->first()['kelas'];
+        $nama_kelas = $kelas->where('id_kelas', $id_kelas)->first()['nama_kelas'];
+        $data = [
+            'title' => 'Admin | Update Kartu ' . $rfid,
+            'rfid' => $rfid,
+            'nis' => $siswa->where('rfid', $rfid)->first()['nis'],
+            'nama_siswa' => $siswa->where('rfid', $rfid)->first()['nama_siswa'],
+            'kelas' => $nama_kelas,
+        ];
+        return view('admin/update_kartu', $data);
+    }
+    public function save_kartu()
+    {
+    }
     public function login()
     {
         return view('admin/login');

@@ -108,6 +108,12 @@
                             <i class="mdi mdi-coin menu-icon"></i>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('admin/kehilangan_kartu') ?>">
+                            <span class="menu-title">Kehilangan Kartu</span>
+                            <i class="mdi mdi-credit-card menu-icon"></i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- partial -->
